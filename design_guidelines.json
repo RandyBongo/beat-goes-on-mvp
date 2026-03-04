@@ -1,0 +1,111 @@
+{
+  "design_system": {
+    "typography": {
+      "font_family": {
+        "heading": "Inter, system-ui, sans-serif",
+        "body": "Inter, system-ui, sans-serif",
+        "mono": "JetBrains Mono, Fira Code, monospace"
+      },
+      "scale": {
+        "display": "text-6xl md:text-8xl font-black tracking-tighter leading-none",
+        "h1": "text-5xl md:text-6xl font-bold tracking-tight leading-tight",
+        "h2": "text-4xl md:text-5xl font-bold tracking-tight",
+        "h3": "text-2xl md:text-3xl font-semibold tracking-normal",
+        "body_lg": "text-lg md:text-xl font-normal leading-relaxed text-muted-foreground",
+        "body": "text-base font-normal leading-relaxed text-muted-foreground",
+        "caption": "text-xs font-medium tracking-widest uppercase text-muted-foreground"
+      }
+    },
+    "colors": {
+      "palette": {
+        "background": "#000000",
+        "surface": "#0A0A0A",
+        "surface_highlight": "#171717",
+        "text_primary": "#FFFFFF",
+        "text_secondary": "#A1A1AA",
+        "accent_primary": "#FF3B30",
+        "accent_glow": "rgba(255, 59, 48, 0.5)",
+        "protocol_blue": "#3B82F6",
+        "success": "#22C55E",
+        "border": "#27272A"
+      },
+      "usage": {
+        "hero_bg": "bg-black",
+        "card_bg": "bg-[#0A0A0A] border border-white/10 hover:border-white/20 transition-colors duration-300",
+        "primary_cta": "bg-[#FF3B30] hover:bg-[#D32F2F] text-white font-bold rounded-none uppercase tracking-widest",
+        "secondary_cta": "bg-white text-black hover:bg-gray-200 font-bold rounded-none uppercase tracking-widest",
+        "text_gradient": "bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500"
+      }
+    },
+    "spacing": {
+      "container_padding": "px-6 md:px-12 lg:px-24",
+      "section_gap": "py-24 md:py-32",
+      "component_gap": "gap-8"
+    },
+    "effects": {
+      "glass": "backdrop-blur-xl bg-black/50 border-b border-white/10",
+      "glow": "shadow-[0_0_20px_rgba(255,59,48,0.3)]",
+      "neon_text": "drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]"
+    },
+    "border_radius": {
+      "default": "rounded-none",
+      "button": "rounded-full",
+      "card": "rounded-xl"
+    }
+  },
+  "components": {
+    "hero": {
+      "structure": "Full viewport height (h-screen). Background image with heavy black gradient overlay (bg-gradient-to-t from-black via-black/50 to-transparent).",
+      "content": "Centered cinematic title. 'The History of Dance Music is No Longer Finished.' in 'display' typography.",
+      "interaction": "Parallax scroll effect on background image."
+    },
+    "timeline": {
+      "structure": "Horizontal scroll container (overflow-x-auto).",
+      "item_style": "Card with aspect ratio 16:9. Image top, text bottom. Hover state: Scale up (scale-105) and reveal details.",
+      "markers": "A progress bar at the bottom indicating the timeline year (1960 - 2026)."
+    },
+    "github_logic_cards": {
+      "layout": "Grid cols-1 md:cols-3 gap-6. Bento grid style.",
+      "card_style": "Dark gray surface (#111). Monospace font for headers (e.g., 'git merge origin/house').",
+      "icons": "Use Lucide React icons: GitMerge, GitPullRequest, Database."
+    },
+    "pioneer_portal": {
+      "auth_modal": "Shadcn Dialog component. Styled with 'glass' effect. JWT login form.",
+      "badge": "A visual 'Genesis Contributor' badge for authenticated users."
+    },
+    "genre_grid": {
+      "layout": "Dense grid (grid-cols-4 md:grid-cols-8 lg:grid-cols-10).",
+      "item": "Small text block. Hover: bg-accent_primary text-white. Click: Open modal."
+    }
+  },
+  "visual_enhancers": {
+    "textures": "Add a fixed noise overlay opacity-5 pointer-events-none z-50.",
+    "gradients": "Use radial gradients to spotlight key sections (e.g., behind the timeline)."
+  },
+  "image_urls": {
+    "hero_background": "https://images.unsplash.com/photo-1634321117972-0395485f8a4d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDV8MHwxfHNlYXJjaHwyfHx1bmRlcmdyb3VuZCUyMHJhdmUlMjBjcm93ZCUyMGRhcmt8ZW58MHx8fHwxNzcyNTgzNjM0fDA&ixlib=rb-4.1.0&q=85",
+    "timeline_detroit": "https://images.unsplash.com/photo-1525109905800-e9bf8214e6c3?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzMzJ8MHwxfHNlYXJjaHwyfHxkZXRyb2l0JTIwdGVjaG5vJTIwY2l0eSUyMHNreWxpbmUlMjBuaWdodHxlbnwwfHx8fDE3NzI1ODM2Mzd8MA&ixlib=rb-4.1.0&q=85",
+    "timeline_chicago": "https://images.unsplash.com/photo-1705741426612-0fcf0d69d395?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1NzZ8MHwxfHNlYXJjaHwzfHxjaGljYWdvJTIwd2FyZWhvdXNlJTIwZXh0ZXJpb3IlMjBuaWdodHxlbnwwfHx8fDE3NzI1ODM2MzZ8MA&ixlib=rb-4.1.0&q=85",
+    "protocol_tech": "https://images.unsplash.com/photo-1772149394726-863195d5889f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzd8MHwxfHNlYXJjaHwyfHxtb2R1bGFyJTIwc3ludGhlc2l6ZXIlMjBwYXRjaCUyMGNhYmxlc3xlbnwwfHx8fDE3NzI1ODM2MzV8MA&ixlib=rb-4.1.0&q=85",
+    "pioneer_dj": "https://images.unsplash.com/photo-1644864527993-d0fc0c61e31a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNDR8MHwxfHNlYXJjaHwyfHx0ZWNobm8lMjBkaiUyMGhhbmRzJTIwdmlueWwlMjBtaXhlcnxlbnwwfHx8fDE3NzI1ODM2MzV8MA&ixlib=rb-4.1.0&q=85",
+    "crowd_rave": "https://images.unsplash.com/photo-1656595696314-e0142a965554?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MDV8MHwxfHNlYXJjaHw0fHx1bmRlcmdyb3VuZCUyMHJhdmUlMjBjcm93ZCUyMGRhcmt8ZW58MHx8fHwxNzcyNTgzNjM0fDA&ixlib=rb-4.1.0&q=85"
+  },
+  "instructions_to_main_agent": [
+    "1. THEME: Enforce 'dark' class on the HTML element. Background must be #000000, not dark gray.",
+    "2. TYPOGRAPHY: Use 'tracking-tighter' on all headings to emulate the premium cinematic feel.",
+    "3. LAYOUT: The Timeline must be a horizontal scroll section. Do not stack it vertically on desktop.",
+    "4. AUTH: Implement the Pioneer Portal using a Shadcn Dialog. Mock the JWT auth logic if backend is not ready, but UI must show 'Login' -> 'Contributor Badge' state.",
+    "5. DATA: The 'Genre Breakdown' should be a visually dense grid of 100+ small text items. Use a mock array for this.",
+    "6. ANIMATION: Use framer-motion for the timeline interactions. When a user clicks a timeline block, it should expand or open a modal.",
+    "7. IMAGES: Use the provided Unsplash URLs. Apply 'grayscale' filter to images in the 'History' section, but keep them full color in 'Hero' and 'Future' sections."
+  ],
+  "universal_guidelines": [
+    "You tend to converge toward generic outputs. Avoid this.",
+    "Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients.",
+    "Create depth through layered design elements with z-index hierarchy.",
+    "Use glass-morphism effects with backdrop filters (12-24px blur).",
+    "Every interaction needs micro-animations - hover states, transitions.",
+    "Use 2-3x more spacing than feels comfortable.",
+    "All interactive elements MUST include data-testid attribute."
+  ]
+}
