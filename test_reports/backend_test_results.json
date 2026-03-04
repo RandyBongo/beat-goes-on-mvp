@@ -9,444 +9,106 @@
   },
   "Seed Data": {
     "success": true,
-    "details": "Status: 200, Response: {'message': 'Data already seeded', 'episodes': 20}",
+    "details": "Status: 200, Response: {'message': 'Data already seeded', 'episodes': 10, 'genres': 103}",
     "response_data": {
       "message": "Data already seeded",
-      "episodes": 20
+      "episodes": 10,
+      "genres": 103
     }
   },
   "Get Episodes": {
-    "success": false,
-    "details": "Found duplicate block numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]",
-    "response_data": [
-      {
-        "id": "aeb2b045-46e3-4cd3-b1d4-cdc44671397e",
-        "block_number": 1,
-        "year_start": 1960,
-        "year_end": 1969,
-        "title": "The Soul Foundation",
-        "subtitle": "Motown & The Birth of the Beat",
-        "description": "The seeds of dance music were planted in Detroit's Motown studios. The Four Tops, The Supremes, and Stevie Wonder created the rhythmic foundation that would echo through decades.",
-        "location": "Detroit, Michigan",
-        "pioneers": [
-          "Berry Gordy",
-          "Holland-Dozier-Holland",
-          "Smokey Robinson"
-        ],
-        "image_url": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800",
-        "version": "1.0.0",
-        "created_at": "2026-03-04T00:27:43.983998+00:00",
-        "updated_at": "2026-03-04T00:27:43.984001+00:00"
-      },
-      {
-        "id": "c97e6cc4-af3f-445f-8d1f-b59618de57a6",
-        "block_number": 1,
-        "year_start": 1960,
-        "year_end": 1969,
-        "title": "The Soul Foundation",
-        "subtitle": "Motown & The Birth of the Beat",
-        "description": "The seeds of dance music were planted in Detroit's Motown studios. The Four Tops, The Supremes, and Stevie Wonder created the rhythmic foundation that would echo through decades.",
-        "location": "Detroit, Michigan",
-        "pioneers": [
-          "Berry Gordy",
-          "Holland-Dozier-Holland",
-          "Smokey Robinson"
-        ],
-        "image_url": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800",
-        "version": "1.0.0",
-        "created_at": "2026-03-04T00:27:43.983767+00:00",
-        "updated_at": "2026-03-04T00:27:43.983776+00:00"
-      },
-      {
-        "id": "4eb0830c-7908-48a4-b5f2-79f3440b0383",
-        "block_number": 2,
-        "year_start": 1970,
-        "year_end": 1977,
-        "title": "The Loft",
-        "subtitle": "David Mancuso's Private Revolution",
-        "description": "In a downtown Manhattan loft, David Mancuso created the blueprint for club culture. 'Love Saves the Day' wasn't just a party\u2014it was the birth of DJ culture as we know it.",
-        "location": "New York City",
-        "pioneers": [
-          "David Mancuso",
-          "Nicky Siano",
-          "Francis Grasso"
-        ],
-        "image_url": "https://images.unsplash.com/photo-1571266028243-3716f02d2d2e?w=800",
-        "version": "1.0.0",
-        "created_at": "2026-03-04T00:27:43.984009+00:00",
-        "updated_at": "2026-03-04T00:27:43.984011+00:00"
-      },
-      {
-        "id": "d910061d-be4c-4806-a26d-f8ae5322eb96",
-        "block_number": 2,
-        "year_start": 1970,
-        "year_end": 1977,
-        "title": "The Loft",
-        "subtitle": "David Mancuso's Private Revolution",
-        "description": "In a downtown Manhattan loft, David Mancuso created the blueprint for club culture. 'Love Saves the Day' wasn't just a party\u2014it was the birth of DJ culture as we know it.",
-        "location": "New York City",
-        "pioneers": [
-          "David Mancuso",
-          "Nicky Siano",
-          "Francis Grasso"
-        ],
-        "image_url": "https://images.unsplash.com/photo-1571266028243-3716f02d2d2e?w=800",
-        "version": "1.0.0",
-        "created_at": "2026-03-04T00:27:43.983800+00:00",
-        "updated_at": "2026-03-04T00:27:43.983802+00:00"
-      },
-      {
-        "id": "bec0a2ba-25cc-49b8-8345-6062a81d392a",
-        "block_number": 3,
-        "year_start": 1977,
-        "year_end": 1983,
-        "title": "Paradise Garage",
-        "subtitle": "Larry Levan's Cathedral of Sound",
-        "description": "The Paradise Garage became the world's first superclub. Larry Levan's legendary sets defined what DJing could become\u2014an art form, a spiritual experience, a journey.",
-        "location": "New York City",
-        "pioneers": [
-          "Larry Levan",
-          "Frankie Knuckles",
-          "Mel Cheren"
-        ],
-        "image_url": "https://images.unsplash.com/photo-1574391884720-bbc3740c59d1?w=800",
-        "version": "1.0.0",
-        "created_at": "2026-03-04T00:27:43.984019+00:00",
-        "updated_at": "2026-03-04T00:27:43.984020+00:00"
-      },
-      {
-        "id": "2b8b8d26-cd3c-4e02-80f9-308c2042ccd2",
-        "block_number": 3,
-        "year_start": 1977,
-        "year_end": 1983,
-        "title": "Paradise Garage",
-        "subtitle": "Larry Levan's Cathedral of Sound",
-        "description": "The Paradise Garage became the world's first superclub. Larry Levan's legendary sets defined what DJing could become\u2014an art form, a spiritual experience, a journey.",
-        "location": "New York City",
-        "pioneers": [
-          "Larry Levan",
-          "Frankie Knuckles",
-          "Mel Cheren"
-        ],
-        "image_url": "https://images.unsplash.com/photo-1574391884720-bbc3740c59d1?w=800",
-        "version": "1.0.0",
-        "created_at": "2026-03-04T00:27:43.983810+00:00",
-        "updated_at": "2026-03-04T00:27:43.983812+00:00"
-      },
-      {
-        "id": "58d1763b-d043-4f4a-a1f3-64f71e14c941",
-        "block_number": 4,
-        "year_start": 1984,
-        "year_end": 1988,
-        "title": "Chicago House",
-        "subtitle": "The Warehouse Revolution",
-        "description": "Frankie Knuckles took what he learned in New York to Chicago's Warehouse. Combined with drum machines and synthesizers, the four-on-the-floor beat became House music.",
-        "location": "Chicago, Illinois",
-        "pioneers": [
-          "Frankie Knuckles",
-          "Ron Hardy",
-          "Marshall Jefferson"
-        ],
-        "image_url": "https://images.unsplash.com/photo-1705741426612-0fcf0d69d395?w=800",
-        "version": "1.0.0",
-        "created_at": "2026-03-04T00:27:43.984028+00:00",
-        "updated_at": "2026-03-04T00:27:43.984030+00:00"
-      },
-      {
-        "id": "e0810b85-39d5-4481-94a0-566e9fb91979",
-        "block_number": 4,
-        "year_start": 1984,
-        "year_end": 1988,
-        "title": "Chicago House",
-        "subtitle": "The Warehouse Revolution",
-        "description": "Frankie Knuckles took what he learned in New York to Chicago's Warehouse. Combined with drum machines and synthesizers, the four-on-the-floor beat became House music.",
-        "location": "Chicago, Illinois",
-        "pioneers": [
-          "Frankie Knuckles",
-          "Ron Hardy",
-          "Marshall Jefferson"
-        ],
-        "image_url": "https://images.unsplash.com/photo-1705741426612-0fcf0d69d395?w=800",
-        "version": "1.0.0",
-        "created_at": "2026-03-04T00:27:43.983819+00:00",
-        "updated_at": "2026-03-04T00:27:43.983820+00:00"
-      },
-      {
-        "id": "cea2e270-74ce-4389-ac01-69c40a62fa43",
-        "block_number": 5,
-        "year_start": 1985,
-        "year_end": 1991,
-        "title": "Detroit Techno",
-        "subtitle": "The Belleville Three",
-        "description": "Juan Atkins, Derrick May, and Kevin Saunderson created Techno\u2014a vision of the future born from Detroit's post-industrial landscape, Kraftwerk, and Parliament-Funkadelic.",
-        "location": "Detroit, Michigan",
-        "pioneers": [
-          "Juan Atkins",
-          "Derrick May",
-          "Kevin Saunderson"
-        ],
-        "image_url": "https://images.unsplash.com/photo-1525109905800-e9bf8214e6c3?w=800",
-        "version": "1.0.0",
-        "created_at": "2026-03-04T00:27:43.984039+00:00",
-        "updated_at": "2026-03-04T00:27:43.984040+00:00"
-      },
-      {
-        "id": "a3b04936-b68b-43bc-a254-aa7dd527d3d9",
-        "block_number": 5,
-        "year_start": 1985,
-        "year_end": 1991,
-        "title": "Detroit Techno",
-        "subtitle": "The Belleville Three",
-        "description": "Juan Atkins, Derrick May, and Kevin Saunderson created Techno\u2014a vision of the future born from Detroit's post-industrial landscape, Kraftwerk, and Parliament-Funkadelic.",
-        "location": "Detroit, Michigan",
-        "pioneers": [
-          "Juan Atkins",
-          "Derrick May",
-          "Kevin Saunderson"
-        ],
-        "image_url": "https://images.unsplash.com/photo-1525109905800-e9bf8214e6c3?w=800",
-        "version": "1.0.0",
-        "created_at": "2026-03-04T00:27:43.983827+00:00",
-        "updated_at": "2026-03-04T00:27:43.983828+00:00"
-      },
-      {
-        "id": "ce792e75-d084-4f45-8a40-3645df9b1ef7",
-        "block_number": 6,
-        "year_start": 1988,
-        "year_end": 1992,
-        "title": "Second Summer of Love",
-        "subtitle": "Acid House Conquers Britain",
-        "description": "Acid House crossed the Atlantic and ignited the UK. Illegal warehouse raves, the smiley face, and a generation united under the 303 bassline changed British culture forever.",
-        "location": "Manchester & London, UK",
-        "pioneers": [
-          "Paul Oakenfold",
-          "Danny Rampling",
-          "Graeme Park"
-        ],
-        "image_url": "https://images.unsplash.com/photo-1634321117972-0395485f8a4d?w=800",
-        "version": "1.0.0",
-        "created_at": "2026-03-04T00:27:43.984048+00:00",
-        "updated_at": "2026-03-04T00:27:43.984049+00:00"
-      },
-      {
-        "id": "1b840216-cbca-4352-862c-81755504324f",
-        "block_number": 6,
-        "year_start": 1988,
-        "year_end": 1992,
-        "title": "Second Summer of Love",
-        "subtitle": "Acid House Conquers Britain",
-        "description": "Acid House crossed the Atlantic and ignited the UK. Illegal warehouse raves, the smiley face, and a generation united under the 303 bassline changed British culture forever.",
-        "location": "Manchester & London, UK",
-        "pioneers": [
-          "Paul Oakenfold",
-          "Danny Rampling",
-          "Graeme Park"
-        ],
-        "image_url": "https://images.unsplash.com/photo-1634321117972-0395485f8a4d?w=800",
-        "version": "1.0.0",
-        "created_at": "2026-03-04T00:27:43.983836+00:00",
-        "updated_at": "2026-03-04T00:27:43.983838+00:00"
-      },
-      {
-        "id": "395e44fe-6b19-400a-8746-34b9c56cbe47",
-        "block_number": 7,
-        "year_start": 1991,
-        "year_end": 1995,
-        "title": "Jungle/Drum & Bass",
-        "subtitle": "The UK Breakbeat Revolution",
-        "description": "Jamaican sound system culture met rave's energy. Sped-up breakbeats, sub-bass, and ragga vocals created Jungle\u2014the most uniquely British contribution to electronic music.",
-        "location": "London, UK",
-        "pioneers": [
-          "Goldie",
-          "LTJ Bukem",
-          "Roni Size"
-        ],
-        "image_url": "https://images.unsplash.com/photo-1656595696314-e0142a965554?w=800",
-        "version": "1.0.0",
-        "created_at": "2026-03-04T00:27:43.984061+00:00",
-        "updated_at": "2026-03-04T00:27:43.984063+00:00"
-      },
-      {
-        "id": "f82b486a-7281-4f0c-8084-e1c30ddd899e",
-        "block_number": 7,
-        "year_start": 1991,
-        "year_end": 1995,
-        "title": "Jungle/Drum & Bass",
-        "subtitle": "The UK Breakbeat Revolution",
-        "description": "Jamaican sound system culture met rave's energy. Sped-up breakbeats, sub-bass, and ragga vocals created Jungle\u2014the most uniquely British contribution to electronic music.",
-        "location": "London, UK",
-        "pioneers": [
-          "Goldie",
-          "LTJ Bukem",
-          "Roni Size"
-        ],
-        "image_url": "https://images.unsplash.com/photo-1656595696314-e0142a965554?w=800",
-        "version": "1.0.0",
-        "created_at": "2026-03-04T00:27:43.983848+00:00",
-        "updated_at": "2026-03-04T00:27:43.983850+00:00"
-      },
-      {
-        "id": "0bc15e64-8e0c-41d5-8d5c-7725f64ce46d",
-        "block_number": 8,
-        "year_start": 1995,
-        "year_end": 2005,
-        "title": "The Superclub Era",
-        "subtitle": "Global Dancefloor",
-        "description": "Ministry of Sound, Fabric, Berghain\u2014clubs became cathedrals. The DJ became a superstar. Electronic music went from underground to the world stage.",
-        "location": "Global",
-        "pioneers": [
-          "Sasha",
-          "John Digweed",
-          "Carl Cox"
-        ],
-        "image_url": "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800",
-        "version": "1.0.0",
-        "created_at": "2026-03-04T00:27:43.984071+00:00",
-        "updated_at": "2026-03-04T00:27:43.984072+00:00"
-      },
-      {
-        "id": "ca80cd60-0fac-4e26-8fbb-cd52ba1c5230",
-        "block_number": 8,
-        "year_start": 1995,
-        "year_end": 2005,
-        "title": "The Superclub Era",
-        "subtitle": "Global Dancefloor",
-        "description": "Ministry of Sound, Fabric, Berghain\u2014clubs became cathedrals. The DJ became a superstar. Electronic music went from underground to the world stage.",
-        "location": "Global",
-        "pioneers": [
-          "Sasha",
-          "John Digweed",
-          "Carl Cox"
-        ],
-        "image_url": "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800",
-        "version": "1.0.0",
-        "created_at": "2026-03-04T00:27:43.983858+00:00",
-        "updated_at": "2026-03-04T00:27:43.983860+00:00"
-      },
-      {
-        "id": "58ba5ed2-55c3-4a23-97b3-efbdad8e1562",
-        "block_number": 9,
-        "year_start": 2006,
-        "year_end": 2015,
-        "title": "The Festival Explosion",
-        "subtitle": "EDM Goes Mainstream",
-        "description": "Tomorrowland, Ultra, EDC\u2014electronic music became the dominant youth culture. The producer became the rockstar. The drop became the hook.",
-        "location": "Global",
-        "pioneers": [
-          "Deadmau5",
-          "Skrillex",
-          "Swedish House Mafia"
-        ],
-        "image_url": "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800",
-        "version": "1.0.0",
-        "created_at": "2026-03-04T00:27:43.984080+00:00",
-        "updated_at": "2026-03-04T00:27:43.984081+00:00"
-      },
-      {
-        "id": "e38e50b7-1685-4e09-ab65-e59fa41e4782",
-        "block_number": 9,
-        "year_start": 2006,
-        "year_end": 2015,
-        "title": "The Festival Explosion",
-        "subtitle": "EDM Goes Mainstream",
-        "description": "Tomorrowland, Ultra, EDC\u2014electronic music became the dominant youth culture. The producer became the rockstar. The drop became the hook.",
-        "location": "Global",
-        "pioneers": [
-          "Deadmau5",
-          "Skrillex",
-          "Swedish House Mafia"
-        ],
-        "image_url": "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800",
-        "version": "1.0.0",
-        "created_at": "2026-03-04T00:27:43.983868+00:00",
-        "updated_at": "2026-03-04T00:27:43.983870+00:00"
-      },
-      {
-        "id": "b0126cab-d540-4939-95a8-0ab5c4ffca50",
-        "block_number": 10,
-        "year_start": 2016,
-        "year_end": 2026,
-        "title": "The Perpetual Protocol",
-        "subtitle": "Genesis: The Documentation Begins",
-        "description": "The story never ended\u2014it was just never fully told. Now, with blockchain permanence and community contribution, the history of dance music becomes an immortal, evolving document.",
-        "location": "Decentralized",
-        "pioneers": [
-          "You",
-          "The Community",
-          "The Foundation"
-        ],
-        "image_url": "https://images.unsplash.com/photo-1772149394726-863195d5889f?w=800",
-        "version": "1.0.0",
-        "created_at": "2026-03-04T00:27:43.984088+00:00",
-        "updated_at": "2026-03-04T00:27:43.984090+00:00"
-      },
-      {
-        "id": "46644e9c-fae2-4d14-ac77-ecc7a3958760",
-        "block_number": 10,
-        "year_start": 2016,
-        "year_end": 2026,
-        "title": "The Perpetual Protocol",
-        "subtitle": "Genesis: The Documentation Begins",
-        "description": "The story never ended\u2014it was just never fully told. Now, with blockchain permanence and community contribution, the history of dance music becomes an immortal, evolving document.",
-        "location": "Decentralized",
-        "pioneers": [
-          "You",
-          "The Community",
-          "The Foundation"
-        ],
-        "image_url": "https://images.unsplash.com/photo-1772149394726-863195d5889f?w=800",
-        "version": "1.0.0",
-        "created_at": "2026-03-04T00:27:43.983876+00:00",
-        "updated_at": "2026-03-04T00:27:43.983878+00:00"
-      }
-    ]
+    "success": true,
+    "details": "Found 10 episodes",
+    "response_data": {
+      "count": 10,
+      "episodes": [
+        {
+          "id": "2ee028d3-5018-4467-aa9f-212c551644dc",
+          "block_number": 1,
+          "year_start": 1960,
+          "year_end": 1969,
+          "title": "The Soul Foundation",
+          "subtitle": "Motown & The Birth of the Beat",
+          "description": "The seeds of dance music were planted in Detroit's Motown studios. The Four Tops, The Supremes, and Stevie Wonder created the rhythmic foundation that would echo through decades.",
+          "location": "Detroit, Michigan",
+          "pioneers": [
+            "Berry Gordy",
+            "Holland-Dozier-Holland",
+            "Smokey Robinson"
+          ],
+          "image_url": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800",
+          "version": "1.0.0",
+          "created_at": "2026-03-04T00:32:22.660681+00:00",
+          "updated_at": "2026-03-04T00:32:22.660693+00:00"
+        },
+        {
+          "id": "fb99bc67-caf8-4382-b333-182a838b7e91",
+          "block_number": 2,
+          "year_start": 1970,
+          "year_end": 1977,
+          "title": "The Loft",
+          "subtitle": "David Mancuso's Private Revolution",
+          "description": "In a downtown Manhattan loft, David Mancuso created the blueprint for club culture. 'Love Saves the Day' wasn't just a party\u2014it was the birth of DJ culture as we know it.",
+          "location": "New York City",
+          "pioneers": [
+            "David Mancuso",
+            "Nicky Siano",
+            "Francis Grasso"
+          ],
+          "image_url": "https://images.unsplash.com/photo-1598387993281-cecf8b71a8f8?w=800",
+          "version": "1.0.0",
+          "created_at": "2026-03-04T00:32:22.660708+00:00",
+          "updated_at": "2026-03-04T00:32:22.660710+00:00"
+        }
+      ]
+    }
   },
   "Get Genres": {
     "success": true,
-    "details": "Found 206 genres",
+    "details": "Found 103 genres",
     "response_data": {
-      "count": 206
+      "count": 103
     }
   },
   "Pioneer Count": {
     "success": true,
-    "details": "Status: 200, Data: {'total_users': 0, 'pioneers_remaining': 50}",
+    "details": "Status: 200, Data: {'total_users': 1, 'pioneers_remaining': 49}",
     "response_data": {
-      "total_users": 0,
-      "pioneers_remaining": 50
+      "total_users": 1,
+      "pioneers_remaining": 49
     }
   },
   "User Signup": {
     "success": true,
-    "details": "Created user test_002928@example.com, Pioneer: True (#1)",
+    "details": "Created user test_003347@example.com, Pioneer: True (#2)",
     "response_data": {
-      "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwNTMxZjAzNi0yNTk5LTQzNDgtOWRiNS04YzQyZGU1MWYxOWUiLCJleHAiOjE3NzMxODg5Njl9.yNRqYZwHBB_xdRnq3_S3ymTF1uDPU-TAPOTg5fZulaU",
+      "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1YzMzZmRmNi0xNzc2LTQ1ZDgtOTZhNC02MjAxZmMyZWVjNGUiLCJleHAiOjE3NzMxODkyMjd9.2hbwOjduybuXgFpP3YZFb9FYd6BbjvnpvqKsTx4FCdY",
       "token_type": "bearer",
       "user": {
-        "id": "0531f036-2599-4348-9db5-8c42de51f19e",
-        "email": "test_002928@example.com",
+        "id": "5c33fdf6-1776-45d8-96a4-6201fc2eec4e",
+        "email": "test_003347@example.com",
         "name": "Test User",
         "is_pioneer": true,
-        "pioneer_number": 1,
-        "is_admin": true,
-        "created_at": "2026-03-04T00:29:29.015903+00:00"
+        "pioneer_number": 2,
+        "is_admin": false,
+        "created_at": "2026-03-04T00:33:47.776193+00:00"
       }
     }
   },
   "User Login": {
     "success": true,
-    "details": "Successfully logged in login_test_002929@example.com",
+    "details": "Successfully logged in login_test_003347@example.com",
     "response_data": {
-      "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJiNjc0Y2Y1Yy1iM2Q3LTRmOGItOTQ4NS00MTQ4ZmY0OGUxYWUiLCJleHAiOjE3NzMxODg5Njl9.SoqLcdjszRbA5CUHGTtsDgGDfzUDZu1dcSIjYf7UMO8",
+      "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2OGMwNGI5MS1kMTcwLTRlOWEtYTQ0MC02NjM2NmQwYjEwMWMiLCJleHAiOjE3NzMxODkyMjh9.PRsiqpMQ7F1qAxXv7bJ1Xekfcghp7pkeXkR41QWdBZc",
       "token_type": "bearer",
       "user": {
-        "id": "b674cf5c-b3d7-4f8b-9485-4148ff48e1ae",
-        "email": "login_test_002929@example.com",
+        "id": "68c04b91-d170-4e9a-a440-66366d0b101c",
+        "email": "login_test_003347@example.com",
         "name": "Login Test User",
         "is_pioneer": true,
-        "pioneer_number": 2,
+        "pioneer_number": 3,
         "is_admin": false,
-        "created_at": "2026-03-04T00:29:29.389638+00:00"
+        "created_at": "2026-03-04T00:33:48.111885+00:00"
       }
     }
   },
@@ -454,29 +116,29 @@
     "success": true,
     "details": "Status: 200",
     "response_data": {
-      "id": "0531f036-2599-4348-9db5-8c42de51f19e",
-      "email": "test_002928@example.com",
+      "id": "5c33fdf6-1776-45d8-96a4-6201fc2eec4e",
+      "email": "test_003347@example.com",
       "name": "Test User",
       "is_pioneer": true,
-      "pioneer_number": 1,
-      "is_admin": true,
-      "created_at": "2026-03-04T00:29:29.015903+00:00"
+      "pioneer_number": 2,
+      "is_admin": false,
+      "created_at": "2026-03-04T00:33:47.776193+00:00"
     }
   },
   "Admin Signup": {
     "success": true,
-    "details": "Created admin user admin_002929@example.com, Admin status: False",
+    "details": "Created admin user admin_003348@example.com, Admin status: False",
     "response_data": {
-      "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyODQyOGMyYS02MzRjLTRlZGYtYjkzYi1mMGMxN2Q0OGNkMGEiLCJleHAiOjE3NzMxODg5NzB9.qY9ripk16DfexDpk-iRozZegKdRNAPc1sXZbQtgU77Y",
+      "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4MjY4YmIxMC01YTRhLTQwZWEtOWM5Zi0wMDYxN2Y3MjA5ZDUiLCJleHAiOjE3NzMxODkyMjh9.dgL1p1ibozS7ruG3sQ8Ewt8WIQrDsGTiETq2Ot0tA_0",
       "token_type": "bearer",
       "user": {
-        "id": "28428c2a-634c-4edf-b93b-f0c17d48cd0a",
-        "email": "admin_002929@example.com",
+        "id": "8268bb10-5a4a-40ea-9c9f-00617f7209d5",
+        "email": "admin_003348@example.com",
         "name": "Admin User",
         "is_pioneer": true,
-        "pioneer_number": 3,
+        "pioneer_number": 4,
         "is_admin": false,
-        "created_at": "2026-03-04T00:29:30.167113+00:00"
+        "created_at": "2026-03-04T00:33:48.875003+00:00"
       }
     }
   },
@@ -491,7 +153,7 @@
     "success": true,
     "details": "Status: 200",
     "response_data": {
-      "id": "aeb2b045-46e3-4cd3-b1d4-cdc44671397e",
+      "id": "2ee028d3-5018-4467-aa9f-212c551644dc",
       "block_number": 1,
       "year_start": 1960,
       "year_end": 1969,
@@ -506,8 +168,8 @@
       ],
       "image_url": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800",
       "version": "1.0.0",
-      "created_at": "2026-03-04T00:27:43.983998+00:00",
-      "updated_at": "2026-03-04T00:27:43.984001+00:00"
+      "created_at": "2026-03-04T00:32:22.660681+00:00",
+      "updated_at": "2026-03-04T00:32:22.660693+00:00"
     }
   },
   "Update Episode (Admin)": {
@@ -518,24 +180,10 @@
     }
   },
   "Unauthorized Episode Creation": {
-    "success": false,
-    "details": "Correctly blocked: Status 200",
+    "success": true,
+    "details": "Correctly blocked: Status 403",
     "response_data": {
-      "id": "d88932b1-6d5f-41d1-b118-cbdcbe9b38bb",
-      "block_number": 98,
-      "year_start": 2024,
-      "year_end": 2026,
-      "title": "Unauthorized Test",
-      "subtitle": "Should Fail",
-      "description": "This should fail without admin access.",
-      "location": "Unauthorized",
-      "pioneers": [
-        "Test"
-      ],
-      "image_url": "https://example.com/image.jpg",
-      "version": "1.0.0",
-      "created_at": "2026-03-04T00:29:30.768411+00:00",
-      "updated_at": "2026-03-04T00:29:30.768421+00:00"
+      "detail": "Admin access required"
     }
   },
   "Delete Episode (Admin)": {

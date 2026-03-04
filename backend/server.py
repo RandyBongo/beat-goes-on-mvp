@@ -305,12 +305,14 @@ async def delete_genre(genre_id: str, admin: dict = Depends(get_admin_user)):
 
 @api_router.post("/seed")
 async def seed_data():
-    """Seed initial episodes and genres if empty"""
+    """Seed initial episodes and genres if empty - idempotent operation"""
     
-    # Check if already seeded
-    episode_count = await db.episodes.count_documents({})
-    if episode_count > 0:
-        return {"message": "Data already seeded", "episodes": episode_count}
+    # Check if already seeded by looking for specific blocks
+    existing_block_1 = await db.episodes.find_one({"block_number": 1})
+    if existing_block_1:
+        episode_count = await db.episodes.count_documents({})
+        genre_count = await db.genres.count_documents({})
+        return {"message": "Data already seeded", "episodes": episode_count, "genres": genre_count}
     
     # Seed episodes
     episodes = [
