@@ -1,0 +1,448 @@
+{
+  "festival": {
+    "name": "Electric Daisy Carnival",
+    "slug": "edc",
+    "promoter": "Insomniac Events",
+    "founded_year": 1997,
+    "description": "Insomniac's flagship festival, now the largest electronic dance music festival in North America. The name predates Insomniac: 'Magical Mickey's Electric Daisy Carnival' was an underground party thrown by Stephen Hauptfuhr and Gary Richards in Chino, CA starting in 1991; Pasquale Rotella acquired use of the name in 1995 and debuted Insomniac's EDC at the Shrine Expo Hall in Los Angeles in 1997. After an LA-era spanning multiple Southern California venues (1997-2010), the festival moved to the Las Vegas Motor Speedway in 2011.",
+    "image_url": null
+  },
+  "editions": [
+    {
+      "year": 1997,
+      "edition_name": "EDC 1997",
+      "venue": "Shrine Expo Hall",
+      "city": "Los Angeles, CA",
+      "country": "USA",
+      "start_date": null,
+      "end_date": null,
+      "attendance": 5000,
+      "notes": "First Insomniac-branded EDC. Single night, roughly 5,000 attendees. DATE DISPUTED: multiple secondary histories give August 29, 1997, but a scanned event flyer circulated by collectors is dated March 29, 1997. Primary source (flyer) vs secondary retellings; unresolved. No EDC was held in 1998.",
+      "sources": [
+        {"source_type": "archived_web", "url": "https://en.wikipedia.org/wiki/Electric_Daisy_Carnival", "description": "Wikipedia: venue and debut year"},
+        {"source_type": "press", "url": "https://festivalinsider.com/articles/electric-daisy-legacy-meet-the-man-behind-the-first-edc", "description": "Festival Insider interview with Stephen Hauptfuhr on EDC name origins"}
+      ],
+      "stages": []
+    },
+    {
+      "year": 1999,
+      "edition_name": "EDC 1999",
+      "venue": "Lake Dolores Waterpark",
+      "city": "Newberry Springs, CA",
+      "country": "USA",
+      "start_date": null,
+      "end_date": null,
+      "attendance": null,
+      "notes": "Held at a now-defunct waterpark in the Mojave. Four genre areas: Trance/Techno, House/Breaks, Drum n Bass/Jungle, and Hardcore. First edition with carnival rides.",
+      "sources": [
+        {"source_type": "archived_web", "url": "https://en.wikipedia.org/wiki/Electric_Daisy_Carnival", "description": "Wikipedia: venue"},
+        {"source_type": "press", "url": "https://ravefaced.tumblr.com/post/89392901367/feature-a-history-of-electric-daisy-carnival", "description": "RaveFaced EDC history: genre areas and rides"}
+      ],
+      "stages": []
+    },
+    {
+      "year": 2000,
+      "edition_name": "EDC 2000",
+      "venue": "International Agri-Center (World Ag Expo)",
+      "city": "Tulare, CA",
+      "country": "USA",
+      "start_date": null,
+      "end_date": null,
+      "attendance": 24000,
+      "notes": "Five stages, roughly 39 performers. Noise complaints led the venue to cancel its contract for future editions.",
+      "sources": [
+        {"source_type": "archived_web", "url": "https://en.wikipedia.org/wiki/Electric_Daisy_Carnival", "description": "Wikipedia: venue, attendance, contract cancellation"}
+      ],
+      "stages": []
+    },
+    {
+      "year": 2001,
+      "edition_name": "EDC 2001",
+      "venue": "Hansen Dam",
+      "city": "Lake View Terrace, CA",
+      "country": "USA",
+      "start_date": null,
+      "end_date": null,
+      "attendance": null,
+      "notes": "First multi-stage EDC with circus-themed stage names: the Merry Go Round, the Fun House, Clown Alley, the Confusin' & Amuzin' Mirror Maze, Bassrush Arena, and Cosmic Healing Temple. Same year as the first EDC Texas (Thunderhill Raceway Park, Austin).",
+      "sources": [
+        {"source_type": "archived_web", "url": "https://en.wikipedia.org/wiki/Electric_Daisy_Carnival", "description": "Wikipedia: venue and stage names"}
+      ],
+      "stages": []
+    },
+    {
+      "year": 2002,
+      "edition_name": "EDC 2002",
+      "venue": "Queen Mary Events Park",
+      "city": "Long Beach, CA",
+      "country": "USA",
+      "start_date": null,
+      "end_date": null,
+      "attendance": null,
+      "notes": "Lineup emphasized trance and drum n bass.",
+      "sources": [
+        {"source_type": "archived_web", "url": "https://en.wikipedia.org/wiki/Electric_Daisy_Carnival", "description": "Wikipedia: venue"}
+      ],
+      "stages": []
+    },
+    {
+      "year": 2003,
+      "edition_name": "EDC 2003",
+      "venue": "NOS Events Center",
+      "city": "San Bernardino, CA",
+      "country": "USA",
+      "start_date": null,
+      "end_date": null,
+      "attendance": null,
+      "notes": "First of four consecutive years at the NOS Events Center (2003-2006).",
+      "sources": [
+        {"source_type": "archived_web", "url": "https://en.wikipedia.org/wiki/Electric_Daisy_Carnival", "description": "Wikipedia: venue span 2003-2006"}
+      ],
+      "stages": []
+    },
+    {
+      "year": 2004,
+      "edition_name": "EDC 2004",
+      "venue": "NOS Events Center",
+      "city": "San Bernardino, CA",
+      "country": "USA",
+      "start_date": null,
+      "end_date": null,
+      "attendance": null,
+      "notes": null,
+      "sources": [
+        {"source_type": "archived_web", "url": "https://en.wikipedia.org/wiki/Electric_Daisy_Carnival", "description": "Wikipedia: venue span 2003-2006"}
+      ],
+      "stages": []
+    },
+    {
+      "year": 2005,
+      "edition_name": "EDC 2005",
+      "venue": "NOS Events Center",
+      "city": "San Bernardino, CA",
+      "country": "USA",
+      "start_date": null,
+      "end_date": null,
+      "attendance": null,
+      "notes": null,
+      "sources": [
+        {"source_type": "archived_web", "url": "https://en.wikipedia.org/wiki/Electric_Daisy_Carnival", "description": "Wikipedia: venue span 2003-2006"}
+      ],
+      "stages": []
+    },
+    {
+      "year": 2006,
+      "edition_name": "EDC 2006",
+      "venue": "NOS Events Center",
+      "city": "San Bernardino, CA",
+      "country": "USA",
+      "start_date": null,
+      "end_date": null,
+      "attendance": null,
+      "notes": "'Celebrating 10 Years of Dance!' Five stages, over 60 artists and performers per Insomniac's promo. Final year at NOS before outgrowing the venue.",
+      "sources": [
+        {"source_type": "press", "url": "https://ravefaced.tumblr.com/post/89392901367/feature-a-history-of-electric-daisy-carnival", "description": "RaveFaced EDC history: 2006 tagline and scale"}
+      ],
+      "stages": []
+    },
+    {
+      "year": 2007,
+      "edition_name": "EDC 2007",
+      "venue": "Los Angeles Memorial Coliseum",
+      "city": "Los Angeles, CA",
+      "country": "USA",
+      "start_date": null,
+      "end_date": null,
+      "attendance": 40000,
+      "notes": "First year at the LA Coliseum and Exposition Park. Five stages.",
+      "sources": [
+        {"source_type": "archived_web", "url": "https://en.wikipedia.org/wiki/Electric_Daisy_Carnival", "description": "Wikipedia: venue"},
+        {"source_type": "press", "url": "https://ravefaced.tumblr.com/post/89392901367/feature-a-history-of-electric-daisy-carnival", "description": "RaveFaced EDC history: attendance"}
+      ],
+      "stages": []
+    },
+    {
+      "year": 2008,
+      "edition_name": "EDC 2008",
+      "venue": "Los Angeles Memorial Coliseum",
+      "city": "Los Angeles, CA",
+      "country": "USA",
+      "start_date": "2008-06-28",
+      "end_date": "2008-06-28",
+      "attendance": null,
+      "notes": "Single day, June 28. Same year Insomniac announced plans to expand EDC to two days.",
+      "sources": [
+        {"source_type": "archived_web", "url": "https://en.wikipedia.org/wiki/Electric_Daisy_Carnival", "description": "Wikipedia: date and venue"}
+      ],
+      "stages": []
+    },
+    {
+      "year": 2009,
+      "edition_name": "EDC 2009",
+      "venue": "Los Angeles Memorial Coliseum & Exposition Park",
+      "city": "Los Angeles, CA",
+      "country": "USA",
+      "start_date": "2009-06-26",
+      "end_date": "2009-06-27",
+      "attendance": 185000,
+      "notes": "First two-day EDC, using the entire southern half of Exposition Park. Approx. 55,000 Friday and 99,000 Saturday per Wikipedia; total attendance approx. 185,000.",
+      "sources": [
+        {"source_type": "archived_web", "url": "https://en.wikipedia.org/wiki/Electric_Daisy_Carnival", "description": "Wikipedia: dates, venue, attendance"}
+      ],
+      "stages": []
+    },
+    {
+      "year": 2010,
+      "edition_name": "EDC 2010",
+      "venue": "Los Angeles Memorial Coliseum",
+      "city": "Los Angeles, CA",
+      "country": "USA",
+      "start_date": null,
+      "end_date": null,
+      "attendance": null,
+      "notes": "Final LA edition. Overcrowding issues and the death of a 15-year-old attendee from MDMA led to political pressure that pushed the festival out of Los Angeles.",
+      "sources": [
+        {"source_type": "archived_web", "url": "https://en.wikipedia.org/wiki/Electric_Daisy_Carnival", "description": "Wikipedia: 2010 controversy"}
+      ],
+      "stages": []
+    },
+    {
+      "year": 2011,
+      "edition_name": "EDC Las Vegas 2011",
+      "venue": "Las Vegas Motor Speedway",
+      "city": "Las Vegas, NV",
+      "country": "USA",
+      "start_date": "2011-06-24",
+      "end_date": "2011-06-26",
+      "attendance": 230000,
+      "notes": "First Las Vegas edition and first three-day EDC. Estimated 230,000 attendees.",
+      "sources": [
+        {"source_type": "press", "url": "https://lasvegassun.com/news/2025/may/08/under-the-electric-sky-the-history-of-edc-las-vega/", "description": "Las Vegas Sun: dates and attendance for inaugural Vegas edition"}
+      ],
+      "stages": []
+    },
+    {
+      "year": 2012,
+      "edition_name": "EDC Las Vegas 2012",
+      "venue": "Las Vegas Motor Speedway",
+      "city": "Las Vegas, NV",
+      "country": "USA",
+      "start_date": null,
+      "end_date": null,
+      "attendance": null,
+      "notes": "Ticket sales capped at 115,000 per night; estimated $130M local economic impact.",
+      "sources": [
+        {"source_type": "press", "url": "https://lasvegassun.com/news/2025/may/08/under-the-electric-sky-the-history-of-edc-las-vega/", "description": "Las Vegas Sun: 2012 cap and economic impact"}
+      ],
+      "stages": []
+    },
+    {
+      "year": 2013,
+      "edition_name": "EDC Las Vegas 2013",
+      "venue": "Las Vegas Motor Speedway",
+      "city": "Las Vegas, NV",
+      "country": "USA",
+      "start_date": null,
+      "end_date": null,
+      "attendance": null,
+      "notes": "Set the record for the largest structural stage at a North American festival.",
+      "sources": [
+        {"source_type": "press", "url": "https://ravefaced.tumblr.com/post/89392901367/feature-a-history-of-electric-daisy-carnival", "description": "RaveFaced EDC history: 2013 stage record"}
+      ],
+      "stages": []
+    },
+    {
+      "year": 2014,
+      "edition_name": "EDC Las Vegas 2014",
+      "venue": "Las Vegas Motor Speedway",
+      "city": "Las Vegas, NV",
+      "country": "USA",
+      "start_date": null,
+      "end_date": null,
+      "attendance": null,
+      "notes": "18th edition of EDC.",
+      "sources": [
+        {"source_type": "press", "url": "https://ravefaced.tumblr.com/post/89392901367/feature-a-history-of-electric-daisy-carnival", "description": "RaveFaced EDC history: 18th edition in 2014"}
+      ],
+      "stages": []
+    },
+    {
+      "year": 2015,
+      "edition_name": "EDC Las Vegas 2015",
+      "venue": "Las Vegas Motor Speedway",
+      "city": "Las Vegas, NV",
+      "country": "USA",
+      "start_date": null,
+      "end_date": null,
+      "attendance": null,
+      "notes": "2015 edition generated approx. $350M in economic impact for Clark County per Beacon Economics.",
+      "sources": [
+        {"source_type": "press", "url": "https://grokipedia.com/page/Electric_Daisy_Carnival", "description": "Beacon Economics 2016 analysis cited: 2015 economic impact"}
+      ],
+      "stages": []
+    },
+    {
+      "year": 2016,
+      "edition_name": "EDC Las Vegas 2016",
+      "venue": "Las Vegas Motor Speedway",
+      "city": "Las Vegas, NV",
+      "country": "USA",
+      "start_date": "2016-06-17",
+      "end_date": "2016-06-19",
+      "attendance": null,
+      "notes": null,
+      "sources": [
+        {"source_type": "archived_web", "url": "https://www.timetoast.com/timelines/electric-daisy-carnival", "description": "Timetoast EDC timeline: 2016 Vegas dates June 17-19"}
+      ],
+      "stages": []
+    },
+    {
+      "year": 2017,
+      "edition_name": "EDC Las Vegas 2017",
+      "venue": "Las Vegas Motor Speedway",
+      "city": "Las Vegas, NV",
+      "country": "USA",
+      "start_date": null,
+      "end_date": null,
+      "attendance": null,
+      "notes": "Over 135,000 attendees on opening night. Held in June; heat-related medical incidents doubled year-over-year, prompting the move to May from 2018. EDC won Festival of the Year at the 2017 Electronic Music Awards.",
+      "sources": [
+        {"source_type": "archived_web", "url": "https://en.wikipedia.org/wiki/Electric_Daisy_Carnival", "description": "Wikipedia: 2017 attendance, heat, award"}
+      ],
+      "stages": []
+    },
+    {
+      "year": 2018,
+      "edition_name": "EDC Las Vegas 2018",
+      "venue": "Las Vegas Motor Speedway",
+      "city": "Las Vegas, NV",
+      "country": "USA",
+      "start_date": "2018-05-18",
+      "end_date": "2018-05-20",
+      "attendance": null,
+      "notes": "First May edition (moved from June for cooler conditions). First year with on-site camping.",
+      "sources": [
+        {"source_type": "archived_web", "url": "https://en.wikipedia.org/wiki/Electric_Daisy_Carnival", "description": "Wikipedia: 2018 dates, May move, camping debut"}
+      ],
+      "stages": []
+    },
+    {
+      "year": 2019,
+      "edition_name": "EDC Las Vegas 2019",
+      "venue": "Las Vegas Motor Speedway",
+      "city": "Las Vegas, NV",
+      "country": "USA",
+      "start_date": null,
+      "end_date": null,
+      "attendance": 450000,
+      "notes": "Approx. 450,000 attendees over the weekend.",
+      "sources": [
+        {"source_type": "press", "url": "https://festivalinsider.com/articles/electric-daisy-legacy-meet-the-man-behind-the-first-edc", "description": "Festival Insider: 2019 attendance approx. 450,000"}
+      ],
+      "stages": []
+    },
+    {
+      "year": 2020,
+      "edition_name": "EDC Las Vegas 2020 (not held)",
+      "venue": "Las Vegas Motor Speedway",
+      "city": "Las Vegas, NV",
+      "country": "USA",
+      "start_date": null,
+      "end_date": null,
+      "attendance": null,
+      "notes": "Not held. Postponed and ultimately cancelled due to the COVID-19 pandemic; the festival returned in October 2021.",
+      "sources": [
+        {"source_type": "archived_web", "url": "https://en.namu.wiki/w/Electric%20Daisy%20Carnival", "description": "COVID-era interruption referenced"}
+      ],
+      "stages": []
+    },
+    {
+      "year": 2021,
+      "edition_name": "EDC Las Vegas 2021",
+      "venue": "Las Vegas Motor Speedway",
+      "city": "Las Vegas, NV",
+      "country": "USA",
+      "start_date": null,
+      "end_date": null,
+      "attendance": null,
+      "notes": "25th anniversary edition, held in October after pandemic delay. Over 600 drones and 8 stages.",
+      "sources": [
+        {"source_type": "press", "url": "https://en.wikipedia.org/wiki/Electric_Daisy_Carnival", "description": "Digital Music News via Wikipedia: 25th anniversary, drones, 8 stages"}
+      ],
+      "stages": []
+    },
+    {
+      "year": 2022,
+      "edition_name": "EDC Las Vegas 2022",
+      "venue": "Las Vegas Motor Speedway",
+      "city": "Las Vegas, NV",
+      "country": "USA",
+      "start_date": null,
+      "end_date": null,
+      "attendance": null,
+      "notes": "Returned to May scheduling. Notable moments included Snoop Dogg and Grimes per Billboard's recap.",
+      "sources": [
+        {"source_type": "press", "url": "https://en.wikipedia.org/wiki/Electric_Daisy_Carnival", "description": "Billboard May 2022 recap via Wikipedia"}
+      ],
+      "stages": []
+    },
+    {
+      "year": 2023,
+      "edition_name": "EDC Las Vegas 2023",
+      "venue": "Las Vegas Motor Speedway",
+      "city": "Las Vegas, NV",
+      "country": "USA",
+      "start_date": null,
+      "end_date": null,
+      "attendance": null,
+      "notes": null,
+      "sources": [],
+      "stages": []
+    },
+    {
+      "year": 2024,
+      "edition_name": "EDC Las Vegas 2024",
+      "venue": "Las Vegas Motor Speedway",
+      "city": "Las Vegas, NV",
+      "country": "USA",
+      "start_date": null,
+      "end_date": null,
+      "attendance": 525000,
+      "notes": "Record attendance of 525,000 over three days.",
+      "sources": [
+        {"source_type": "press", "url": "https://en.wikipedia.org/wiki/Electric_Daisy_Carnival", "description": "Digital Music News via Wikipedia: 2024 record attendance"}
+      ],
+      "stages": []
+    },
+    {
+      "year": 2025,
+      "edition_name": "EDC Las Vegas 2025",
+      "venue": "Las Vegas Motor Speedway",
+      "city": "Las Vegas, NV",
+      "country": "USA",
+      "start_date": "2025-05-16",
+      "end_date": "2025-05-18",
+      "attendance": null,
+      "notes": null,
+      "sources": [
+        {"source_type": "press", "url": "https://lasvegassun.com/news/2025/may/08/under-the-electric-sky-the-history-of-edc-las-vega/", "description": "Las Vegas Sun: 2025 dates May 16-18"}
+      ],
+      "stages": []
+    },
+    {
+      "year": 2026,
+      "edition_name": "EDC Las Vegas 2026",
+      "venue": "Las Vegas Motor Speedway",
+      "city": "Las Vegas, NV",
+      "country": "USA",
+      "start_date": null,
+      "end_date": null,
+      "attendance": null,
+      "notes": "Festival announced expansion to two weekends beginning in 2027.",
+      "sources": [
+        {"source_type": "archived_web", "url": "https://en.wikipedia.org/wiki/Electric_Daisy_Carnival", "description": "Wikipedia: 2027 two-weekend expansion announced"}
+      ],
+      "stages": []
+    }
+  ]
+}

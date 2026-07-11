@@ -88,8 +88,7 @@ def slugify(text: str) -> str:
     return slug or new_id()[:8]
 
 
-def unique_festival_slug(db, name: str) -> str:
-    base = slugify(name)
+def unique_festival_slug(db, base: str) -> str:
     slug = base
     suffix = 2
     while db.festivals.find_one({"slug": slug}):
@@ -99,8 +98,11 @@ def unique_festival_slug(db, name: str) -> str:
 
 
 def upsert_festival(db, data: dict, dry_run: bool) -> dict:
-    slug = slugify(data["name"])
-    existing = db.festivals.find_one({"slug": slug})
+    # Honor an explicit "slug" in the input (sanitized), falling back to
+    # deriving one from the name - matches this scaffold's intent to control
+    # its own URL rather than always getting an auto-generated one.
+    base_slug = slugify(data["slug"]) if data.get("slug") else slugify(data["name"])
+    existing = db.festivals.find_one({"slug": base_slug})
     if existing:
         print(f"  festival: reusing existing '{data['name']}' ({existing['id']})")
         return existing
@@ -108,7 +110,7 @@ def upsert_festival(db, data: dict, dry_run: bool) -> dict:
     doc = {
         "id": new_id(),
         "name": data["name"],
-        "slug": unique_festival_slug(db, data["name"]),
+        "slug": unique_festival_slug(db, base_slug),
         "promoter": data.get("promoter"),
         "founded_year": data.get("founded_year"),
         "description": data.get("description"),
