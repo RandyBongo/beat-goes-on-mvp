@@ -6,6 +6,7 @@ from pydantic import BaseModel, Field, ConfigDict, EmailStr
 from typing import List, Optional
 import uuid
 from datetime import datetime, timezone
+from pymongo.errors import DuplicateKeyError, BulkWriteError
 
 from deps import (
     client,
@@ -202,7 +203,10 @@ async def get_episode(episode_id: str):
 async def create_episode(episode_data: EpisodeCreate, admin: dict = Depends(get_admin_user)):
     episode = Episode(**episode_data.model_dump())
     doc = episode.model_dump()
-    await db.episodes.insert_one(doc)
+    try:
+        await db.episodes.insert_one(doc)
+    except DuplicateKeyError:
+        raise HTTPException(status_code=400, detail=f"Block number {episode.block_number} already exists")
     return episode
 
 @api_router.put("/episodes/{episode_id}", response_model=Episode)
@@ -210,11 +214,14 @@ async def update_episode(episode_id: str, episode_data: EpisodeCreate, admin: di
     existing = await db.episodes.find_one({"id": episode_id}, {"_id": 0})
     if not existing:
         raise HTTPException(status_code=404, detail="Episode not found")
-    
+
     update_doc = episode_data.model_dump()
     update_doc["updated_at"] = datetime.now(timezone.utc).isoformat()
-    
-    await db.episodes.update_one({"id": episode_id}, {"$set": update_doc})
+
+    try:
+        await db.episodes.update_one({"id": episode_id}, {"$set": update_doc})
+    except DuplicateKeyError:
+        raise HTTPException(status_code=400, detail=f"Block number {episode_data.block_number} already exists")
     updated = await db.episodes.find_one({"id": episode_id}, {"_id": 0})
     return updated
 
@@ -236,7 +243,10 @@ async def get_genres():
 async def create_genre(genre_data: GenreCreate, admin: dict = Depends(get_admin_user)):
     genre = Genre(**genre_data.model_dump())
     doc = genre.model_dump()
-    await db.genres.insert_one(doc)
+    try:
+        await db.genres.insert_one(doc)
+    except DuplicateKeyError:
+        raise HTTPException(status_code=400, detail=f"Genre '{genre.name}' already exists")
     return genre
 
 @api_router.post("/genres/bulk", response_model=List[Genre])
@@ -244,7 +254,17 @@ async def create_genres_bulk(genres_data: List[GenreCreate], admin: dict = Depen
     genres = [Genre(**g.model_dump()) for g in genres_data]
     docs = [g.model_dump() for g in genres]
     if docs:
-        await db.genres.insert_many(docs)
+        try:
+            await db.genres.insert_many(docs, ordered=False)
+        except BulkWriteError as exc:
+            write_errors = exc.details.get("writeErrors", [])
+            if any(err.get("code") != 11000 for err in write_errors):
+                raise
+            dupe_names = [docs[err["index"]]["name"] for err in write_errors]
+            raise HTTPException(
+                status_code=400,
+                detail=f"Genre(s) already exist: {', '.join(dupe_names)}",
+            )
     return genres
 
 @api_router.delete("/genres/{genre_id}")
@@ -256,11 +276,29 @@ async def delete_genre(genre_id: str, admin: dict = Depends(get_admin_user)):
 
 # ============== SEED DATA ==============
 
+async def insert_many_ignoring_duplicates(collection, docs):
+    """insert_many that tolerates a concurrent seed already having inserted
+    some of these docs — the unique index (see ensure_indexes) still blocks
+    any actual duplicate from landing, this just stops that from bubbling up
+    as a 500 when it's simply a race with another /seed call."""
+    if not docs:
+        return
+    try:
+        await collection.insert_many(docs, ordered=False)
+    except BulkWriteError as exc:
+        write_errors = exc.details.get("writeErrors", [])
+        if any(err.get("code") != 11000 for err in write_errors):
+            raise
+
 @api_router.post("/seed")
 async def seed_data():
-    """Seed initial episodes and genres if empty - idempotent operation"""
-    
-    # Check if already seeded by looking for specific blocks
+    """Seed initial episodes and genres if empty - idempotent operation.
+
+    Fast-path check below is only an optimization to skip the work in the
+    common case; the actual duplicate-proofing is the unique index on
+    episodes.block_number / genres.name, so two concurrent calls (e.g. React
+    StrictMode double-invoking an effect) can't both insert the full set.
+    """
     existing_block_1 = await db.episodes.find_one({"block_number": 1})
     if existing_block_1:
         episode_count = await db.episodes.count_documents({})
@@ -382,8 +420,8 @@ async def seed_data():
     ]
     
     episode_docs = [e.model_dump() for e in episodes]
-    await db.episodes.insert_many(episode_docs)
-    
+    await insert_many_ignoring_duplicates(db.episodes, episode_docs)
+
     # Seed genres
     genres = [
         # House variants
@@ -503,9 +541,11 @@ async def seed_data():
     ]
     
     genre_docs = [g.model_dump() for g in genres]
-    await db.genres.insert_many(genre_docs)
-    
-    return {"message": "Data seeded successfully", "episodes": len(episodes), "genres": len(genres)}
+    await insert_many_ignoring_duplicates(db.genres, genre_docs)
+
+    episode_count = await db.episodes.count_documents({})
+    genre_count = await db.genres.count_documents({})
+    return {"message": "Data seeded successfully", "episodes": episode_count, "genres": genre_count}
 
 # ============== STATUS ROUTES ==============
 
@@ -547,6 +587,14 @@ logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
+
+@app.on_event("startup")
+async def ensure_indexes():
+    # Backs the idempotency of /api/seed: even if two requests race past the
+    # find-then-insert check below, the unique index rejects the second
+    # insert of any given block_number/name instead of duplicating it.
+    await db.episodes.create_index("block_number", unique=True)
+    await db.genres.create_index("name", unique=True)
 
 @app.on_event("shutdown")
 async def shutdown_db_client():
