@@ -1,0 +1,49 @@
+{
+  "festival": {
+    "name": "Ultra Music Festival",
+    "promoter": "Ultra Enterprises",
+    "founded_year": 1999,
+    "description": "Miami's flagship electronic music festival.",
+    "image_url": "https://example.com/ultra.jpg"
+  },
+  "editions": [
+    {
+      "year": 2018,
+      "edition_name": "Ultra Miami 2018",
+      "venue": "Bayfront Park",
+      "city": "Miami",
+      "country": "USA",
+      "start_date": "2018-03-23",
+      "end_date": "2018-03-25",
+      "attendance": 165000,
+      "sources": [
+        {"source_type": "press", "url": "https://example.com/ultra2018-recap", "description": "Official recap"}
+      ],
+      "stages": [
+        {
+          "name": "Main Stage",
+          "sort_order": 1,
+          "sets": [
+            {
+              "artist_name": "Above & Beyond",
+              "set_date": "2018-03-24",
+              "start_time": "22:00",
+              "end_time": "23:15",
+              "status": "verified",
+              "sources": [
+                {"source_type": "flyer", "image_url": "https://example.com/ultra2018-flyer.jpg", "description": "Official lineup flyer"}
+              ]
+            },
+            {
+              "artist_name": "Eric Prydz",
+              "is_b2b": false,
+              "set_date": "2018-03-25",
+              "start_time": "23:30",
+              "end_time": "01:00"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
