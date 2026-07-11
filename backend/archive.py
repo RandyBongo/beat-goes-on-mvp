@@ -187,6 +187,8 @@ class StageOut(Stage):
 
 
 class EditionDetail(Edition):
+    festival_name: Optional[str] = None
+    festival_slug: Optional[str] = None
     stages: List[StageOut] = []
     sources: List[Source] = []
 
@@ -322,6 +324,8 @@ async def get_edition(edition_id: str):
     if not edition:
         raise HTTPException(status_code=404, detail="Edition not found")
 
+    festival = await db.festivals.find_one({"id": edition["festival_id"]}, {"_id": 0})
+
     stages = await db.stages.find({"edition_id": edition_id}, {"_id": 0}).sort(
         "sort_order", 1
     ).to_list(1000)
@@ -347,7 +351,11 @@ async def get_edition(edition_id: str):
     ]
 
     return EditionDetail(
-        **edition, stages=stage_outs, sources=sources_by_target.get(edition_id, [])
+        **edition,
+        festival_name=festival["name"] if festival else None,
+        festival_slug=festival["slug"] if festival else None,
+        stages=stage_outs,
+        sources=sources_by_target.get(edition_id, []),
     )
 
 

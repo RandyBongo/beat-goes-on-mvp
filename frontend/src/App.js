@@ -4,6 +4,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import axios from "axios";
 import LandingPage from "./components/LandingPage";
 import AdminDashboard from "./components/AdminDashboard";
+import ArchiveIndex from "./components/ArchiveIndex";
+import FestivalPage from "./components/FestivalPage";
+import EditionPage from "./components/EditionPage";
+import ArtistPage from "./components/ArtistPage";
+import ChangelogPage from "./components/ChangelogPage";
 import { Toaster } from "./components/ui/sonner";
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -98,6 +103,11 @@ function App() {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/festivals" element={<ArchiveIndex />} />
+            <Route path="/festivals/:slug" element={<FestivalPage />} />
+            <Route path="/editions/:id" element={<EditionPage />} />
+            <Route path="/artists/:name" element={<ArtistPage />} />
+            <Route path="/changelog" element={<ChangelogPage />} />
           </Routes>
         </BrowserRouter>
         <Toaster position="bottom-right" theme="dark" />

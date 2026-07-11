@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../App";
 import { Menu, X, User, LogOut, Shield } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,6 +15,7 @@ const Navbar = ({ onAuthClick }) => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,14 +30,31 @@ const Navbar = ({ onAuthClick }) => {
     { label: "Protocol", href: "#protocol" },
     { label: "Pioneer", href: "#pioneer" },
     { label: "Genres", href: "#genres" },
+    { label: "Archive", href: "/festivals", route: true },
+    { label: "Changelog", href: "/changelog", route: true },
   ];
 
   const scrollToSection = (href) => {
+    if (location.pathname !== "/") {
+      // Anchor targets only exist on the landing page; hop back there first.
+      navigate(`/${href}`);
+      setMobileMenuOpen(false);
+      return;
+    }
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
     setMobileMenuOpen(false);
+  };
+
+  const handleNavClick = (link) => {
+    if (link.route) {
+      navigate(link.href);
+      setMobileMenuOpen(false);
+    } else {
+      scrollToSection(link.href);
+    }
   };
 
   return (
@@ -66,7 +84,7 @@ const Navbar = ({ onAuthClick }) => {
           {navLinks.map((link) => (
             <button
               key={link.label}
-              onClick={() => scrollToSection(link.href)}
+              onClick={() => handleNavClick(link)}
               className="text-sm text-white/70 hover:text-white transition-colors duration-300 uppercase tracking-widest font-medium"
               data-testid={`nav-${link.label.toLowerCase()}`}
             >
@@ -152,7 +170,7 @@ const Navbar = ({ onAuthClick }) => {
             {navLinks.map((link) => (
               <button
                 key={link.label}
-                onClick={() => scrollToSection(link.href)}
+                onClick={() => handleNavClick(link)}
                 className="text-left text-lg text-white/70 hover:text-white transition-colors uppercase tracking-widest"
               >
                 {link.label}

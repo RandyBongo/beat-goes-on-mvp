@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { API } from "../App";
 import Navbar from "./Navbar";
@@ -15,6 +16,16 @@ const LandingPage = () => {
   const [pioneerCount, setPioneerCount] = useState({ total_users: 0, pioneers_remaining: 50 });
   const [loading, setLoading] = useState(true);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!loading && location.hash) {
+      const element = document.querySelector(location.hash);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [loading, location.hash]);
 
   useEffect(() => {
     const fetchData = async () => {

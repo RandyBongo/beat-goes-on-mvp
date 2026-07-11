@@ -230,12 +230,13 @@ def upsert_source(db, target_type: str, target_id: str, data: dict, dry_run: boo
         db.sources.insert_one(doc)
 
 
-def write_changelog(db, summary: str, credited_to: str, dry_run: bool) -> None:
+def write_changelog(db, festival_id: str, summary: str, credited_to: str, dry_run: bool) -> None:
     doc = {
         "id": new_id(),
         "timestamp": now_iso(),
         "action": "created",
         "target_type": "festival",
+        "target_id": festival_id,
         "summary": summary,
         "credited_to": credited_to,
         "version_note": "Bulk seed import",
@@ -285,7 +286,7 @@ def main():
         f"Bulk-imported {festival_data['name']}: {edition_count} edition(s), "
         f"{stage_count} stage(s), {set_count} set(s), {source_count} source(s)"
     )
-    write_changelog(db, summary, args.credited_to, args.dry_run)
+    write_changelog(db, festival["id"], summary, args.credited_to, args.dry_run)
     print(summary)
 
 
