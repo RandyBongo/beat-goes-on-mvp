@@ -576,7 +576,15 @@ app.include_router(archive_router)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_credentials=True,
+    # Auth is a Bearer token in the Authorization header, not a cookie, so
+    # there's nothing that needs allow_credentials=True — and leaving it on
+    # is actively harmful here: per the CORS spec a browser rejects
+    # `Access-Control-Allow-Origin: *` combined with
+    # `Access-Control-Allow-Credentials: true`, so Starlette works around
+    # it by echoing back whatever Origin the request came from, i.e.
+    # "credentialed requests allowed from any origin" — far more permissive
+    # than the plain wildcard this app actually needs.
+    allow_credentials=False,
     allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
     allow_methods=["*"],
     allow_headers=["*"],

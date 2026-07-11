@@ -17,7 +17,13 @@ client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
 
 # JWT Config
-SECRET_KEY = os.environ.get('JWT_SECRET', 'the-beat-goes-on-secret-key-2026')
+try:
+    SECRET_KEY = os.environ['JWT_SECRET']
+except KeyError:
+    raise RuntimeError(
+        "JWT_SECRET environment variable is not set. Generate one with "
+        "`openssl rand -hex 32` and add it to backend/.env (see backend/.env.example)."
+    )
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7  # 1 week
 
