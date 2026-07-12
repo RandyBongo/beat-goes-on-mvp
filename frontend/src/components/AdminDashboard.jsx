@@ -14,6 +14,9 @@ import {
   Save,
   X,
   Loader2,
+  Inbox,
+  Check,
+  ShieldQuestion,
 } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
 import { Input } from "./ui/input";
@@ -30,6 +33,10 @@ const AdminDashboard = () => {
   const [editingEpisode, setEditingEpisode] = useState(null);
   const [isCreating, setIsCreating] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [proposals, setProposals] = useState([]);
+  const [proposalStatus, setProposalStatus] = useState("pending");
+  const [proposalsLoading, setProposalsLoading] = useState(false);
+  const [reviewingId, setReviewingId] = useState(null);
 
   const [episodeForm, setEpisodeForm] = useState({
     block_number: 1,
@@ -70,6 +77,68 @@ const AdminDashboard = () => {
       fetchData();
     }
   }, [authLoading, isAdmin, navigate]);
+
+  const fetchProposals = async (status) => {
+    setProposalsLoading(true);
+    try {
+      const res = await axios.get(`${API}/proposals`, {
+        params: { status },
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setProposals(res.data);
+    } catch (error) {
+      toast.error("Failed to load proposals");
+    } finally {
+      setProposalsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isAdmin) {
+      fetchProposals(proposalStatus);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAdmin, proposalStatus]);
+
+  const handleApprove = async (proposalId) => {
+    setReviewingId(proposalId);
+    try {
+      await axios.post(
+        `${API}/proposals/${proposalId}/approve`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      toast.success("Proposal approved");
+      fetchProposals(proposalStatus);
+    } catch (error) {
+      toast.error(error.response?.data?.detail || "Failed to approve proposal");
+    } finally {
+      setReviewingId(null);
+    }
+  };
+
+  const handleReject = async (proposalId) => {
+    const reviewerNote = window.prompt("Reason for rejecting this proposal (shown to no one but kept for the record):");
+    if (reviewerNote === null) return;
+    if (!reviewerNote.trim()) {
+      toast.error("A reason is required to reject a proposal");
+      return;
+    }
+    setReviewingId(proposalId);
+    try {
+      await axios.post(
+        `${API}/proposals/${proposalId}/reject`,
+        { reviewer_note: reviewerNote.trim() },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      toast.success("Proposal rejected");
+      fetchProposals(proposalStatus);
+    } catch (error) {
+      toast.error(error.response?.data?.detail || "Failed to reject proposal");
+    } finally {
+      setReviewingId(null);
+    }
+  };
 
   const handleEpisodeSubmit = async (e) => {
     e.preventDefault();
@@ -253,6 +322,9 @@ const AdminDashboard = () => {
               <TabsTrigger value="genres" className="data-[state=active]:bg-[#FF3B30]">
                 Genres
               </TabsTrigger>
+              <TabsTrigger value="proposals" className="data-[state=active]:bg-[#FF3B30]" data-testid="proposals-tab">
+                Proposals
+              </TabsTrigger>
             </TabsList>
 
             <TabsContent value="episodes">
@@ -334,6 +406,148 @@ const AdminDashboard = () => {
                   </div>
                 ))}
               </div>
+            </TabsContent>
+
+            <TabsContent value="proposals">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-xl font-bold text-white">Moderation Queue</h2>
+                <div className="flex items-center gap-2">
+                  {["pending", "approved", "rejected"].map((s) => (
+                    <button
+                      key={s}
+                      onClick={() => setProposalStatus(s)}
+                      className={`px-3 py-1.5 text-xs font-mono uppercase tracking-widest border transition-colors ${
+                        proposalStatus === s
+                          ? "bg-[#FF3B30] border-[#FF3B30] text-white"
+                          : "border-white/20 text-white/50 hover:text-white"
+                      }`}
+                      data-testid={`proposal-filter-${s}`}
+                    >
+                      {s}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {proposalsLoading ? (
+                <div className="flex items-center justify-center py-16">
+                  <Loader2 className="w-6 h-6 text-white animate-spin" />
+                </div>
+              ) : proposals.length === 0 ? (
+                <div className="py-16 text-center border border-white/10 bg-[#0A0A0A]">
+                  <Inbox className="w-8 h-8 text-white/20 mx-auto mb-3" />
+                  <p className="text-white/50">No {proposalStatus} proposals.</p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {proposals.map((p) => (
+                    <div
+                      key={p.id}
+                      className="bg-[#0A0A0A] border border-white/10 p-6"
+                      data-testid={`proposal-row-${p.id}`}
+                    >
+                      <div className="flex items-start justify-between gap-4 flex-wrap mb-4">
+                        <div>
+                          <div className="flex items-center gap-3 mb-1">
+                            <span
+                              className={`px-2 py-0.5 text-[10px] font-mono uppercase tracking-widest ${
+                                p.proposal_type === "correction"
+                                  ? "bg-[#3B82F6]/10 text-[#3B82F6] border border-[#3B82F6]/30"
+                                  : "bg-white/10 text-white/70 border border-white/20"
+                              }`}
+                            >
+                              {p.proposal_type === "correction" ? "Correction" : "New Set"}
+                            </span>
+                            <span className="text-xs text-white/40">
+                              {p.festival_name} — {p.edition_label}
+                            </span>
+                          </div>
+                          <h3 className="text-lg font-bold text-white">
+                            {p.artist_name}
+                            {p.is_b2b && p.b2b_partners?.length > 0 && (
+                              <span className="text-white/50 font-normal">
+                                {" "}
+                                b2b {p.b2b_partners.join(", ")}
+                              </span>
+                            )}
+                          </h3>
+                          <p className="text-sm text-white/50">
+                            {p.stage_name}
+                            {p.set_date && ` · ${p.set_date}`}
+                            {(p.start_time || p.end_time) &&
+                              ` · ${[p.start_time, p.end_time].filter(Boolean).join(" – ")}`}
+                          </p>
+                        </div>
+                        {p.status === "pending" && (
+                          <div className="flex items-center gap-2">
+                            <button
+                              onClick={() => handleReject(p.id)}
+                              disabled={reviewingId === p.id}
+                              className="flex items-center gap-2 px-4 py-2 border border-white/20 hover:border-red-500/50 text-white/70 hover:text-red-400 text-sm transition-colors disabled:opacity-50"
+                              data-testid={`reject-proposal-${p.id}`}
+                            >
+                              <X className="w-4 h-4" />
+                              Reject
+                            </button>
+                            <button
+                              onClick={() => handleApprove(p.id)}
+                              disabled={reviewingId === p.id}
+                              className="flex items-center gap-2 px-4 py-2 bg-[#22C55E] text-white text-sm font-medium hover:bg-[#16A34A] transition-colors disabled:opacity-50"
+                              data-testid={`approve-proposal-${p.id}`}
+                            >
+                              {reviewingId === p.id ? (
+                                <Loader2 className="w-4 h-4 animate-spin" />
+                              ) : (
+                                <Check className="w-4 h-4" />
+                              )}
+                              Approve
+                            </button>
+                          </div>
+                        )}
+                      </div>
+
+                      {p.notes && <p className="text-sm text-white/50 mb-3">{p.notes}</p>}
+
+                      <div className="bg-black/40 border border-white/10 px-4 py-3 text-sm">
+                        <p className="text-white/40 text-xs uppercase tracking-widest mb-1">
+                          Source ({p.source_type.replace(/_/g, " ")})
+                        </p>
+                        {(p.source_url || p.source_image_url) && (
+                          <a
+                            href={p.source_url || p.source_image_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-[#FF3B30] hover:underline break-all"
+                          >
+                            {p.source_url || p.source_image_url}
+                          </a>
+                        )}
+                        {p.source_description && (
+                          <p className="text-white/70 mt-1">{p.source_description}</p>
+                        )}
+                      </div>
+
+                      <div className="flex items-center justify-between mt-3 text-xs text-white/40">
+                        <span>
+                          Submitted by {p.contributor_name || "Anonymous"} on{" "}
+                          {new Date(p.created_at).toLocaleDateString()}
+                        </span>
+                        {p.status !== "pending" && (
+                          <span className="flex items-center gap-1">
+                            {p.status === "approved" ? (
+                              <Check className="w-3.5 h-3.5 text-[#22C55E]" />
+                            ) : (
+                              <ShieldQuestion className="w-3.5 h-3.5 text-red-400" />
+                            )}
+                            Reviewed by {p.reviewed_by}
+                            {p.reviewer_note && ` — "${p.reviewer_note}"`}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </TabsContent>
           </Tabs>
         </div>

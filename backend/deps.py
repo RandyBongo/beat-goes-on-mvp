@@ -5,6 +5,7 @@ from fastapi import Depends, HTTPException
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from passlib.context import CryptContext
 from datetime import datetime, timezone, timedelta
+from typing import Optional
 import os
 import jwt
 
@@ -30,6 +31,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7  # 1 week
 # Password hashing
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 security = HTTPBearer()
+optional_security = HTTPBearer(auto_error=False)
 
 
 def hash_password(password: str) -> str:
@@ -68,3 +70,21 @@ async def get_admin_user(current_user: dict = Depends(get_current_user)):
     if not current_user.get("is_admin", False):
         raise HTTPException(status_code=403, detail="Admin access required")
     return current_user
+
+
+async def get_optional_user(
+    credentials: Optional[HTTPAuthorizationCredentials] = Depends(optional_security),
+) -> Optional[dict]:
+    """Like get_current_user, but returns None instead of raising when no
+    token is present or it's invalid - for endpoints open to both logged-in
+    and anonymous callers (e.g. public proposal submission)."""
+    if credentials is None:
+        return None
+    try:
+        payload = jwt.decode(credentials.credentials, SECRET_KEY, algorithms=[ALGORITHM])
+        user_id = payload.get("sub")
+        if user_id is None:
+            return None
+        return await db.users.find_one({"id": user_id}, {"_id": 0})
+    except jwt.PyJWTError:
+        return None

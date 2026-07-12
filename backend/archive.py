@@ -14,7 +14,7 @@ from typing import List, Literal, Optional
 from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel, ConfigDict, Field
 
-from deps import db, get_admin_user
+from deps import db, get_admin_user, get_optional_user
 
 archive_router = APIRouter(prefix="/api")
 
@@ -174,6 +174,76 @@ class ChangeLogEntry(BaseModel):
     summary: str
     credited_to: str = "Foundation"
     version_note: Optional[str] = None
+
+
+PROPOSAL_TYPE = Literal["new", "correction"]
+PROPOSAL_STATUS = Literal["pending", "approved", "rejected"]
+
+
+class Proposal(BaseModel):
+    """A public "add or correct a set" submission awaiting admin review.
+    Mirrors PerformanceSet fields plus a single required source, per spec.
+
+    stage_name is free text rather than a stage_id: many editions (e.g. the
+    seeded EDC scaffold) have zero stages yet, so contributors name the
+    stage and approval resolves it to an existing or newly-created Stage -
+    the same find-or-create pattern seed_festivals.py already uses.
+    """
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=new_id)
+    proposal_type: PROPOSAL_TYPE
+    target_set_id: Optional[str] = None
+    edition_id: str
+    stage_name: str
+    artist_name: str
+    artist_id: Optional[str] = None
+    set_date: Optional[str] = None
+    start_time: Optional[str] = None
+    end_time: Optional[str] = None
+    is_b2b: bool = False
+    b2b_partners: Optional[List[str]] = None
+    notes: Optional[str] = None
+    source_type: SOURCE_TYPE
+    source_url: Optional[str] = None
+    source_image_url: Optional[str] = None
+    source_description: Optional[str] = None
+    contributor_name: Optional[str] = None
+    contributor_user_id: Optional[str] = None
+    status: PROPOSAL_STATUS = "pending"
+    reviewer_note: Optional[str] = None
+    reviewed_by: Optional[str] = None
+    reviewed_at: Optional[str] = None
+    created_at: str = Field(default_factory=now_iso)
+
+
+class ProposalCreate(BaseModel):
+    proposal_type: PROPOSAL_TYPE
+    target_set_id: Optional[str] = None
+    edition_id: str
+    stage_name: str
+    artist_name: str
+    artist_id: Optional[str] = None
+    set_date: Optional[str] = None
+    start_time: Optional[str] = None
+    end_time: Optional[str] = None
+    is_b2b: bool = False
+    b2b_partners: Optional[List[str]] = None
+    notes: Optional[str] = None
+    source_type: SOURCE_TYPE
+    source_url: Optional[str] = None
+    source_image_url: Optional[str] = None
+    source_description: Optional[str] = None
+    contributor_name: Optional[str] = None  # only used when submitting anonymously
+
+
+class ProposalReject(BaseModel):
+    reviewer_note: str
+
+
+class ProposalOut(Proposal):
+    festival_name: Optional[str] = None
+    festival_slug: Optional[str] = None
+    edition_label: Optional[str] = None
 
 
 # ---- read/response shapes (not stored, just for nested API output) ----
@@ -415,6 +485,34 @@ async def get_changelog(page: int = Query(1, ge=1), page_size: int = Query(25, g
         "timestamp", -1
     ).skip((page - 1) * page_size).limit(page_size).to_list(page_size)
     return ChangelogPage(items=items, page=page, page_size=page_size, total=total)
+
+
+# ============== PUBLIC: PROPOSALS (contribution flow) ==============
+
+@archive_router.post("/proposals", response_model=Proposal)
+async def create_proposal(
+    data: ProposalCreate, current_user: Optional[dict] = Depends(get_optional_user)
+):
+    if data.proposal_type == "correction" and not data.target_set_id:
+        raise HTTPException(
+            status_code=400, detail="target_set_id is required for a correction proposal"
+        )
+    if not (data.source_url or data.source_image_url or data.source_description):
+        raise HTTPException(
+            status_code=400, detail="A source (url, image_url, or description) is required"
+        )
+
+    await require_edition(data.edition_id)
+    if data.target_set_id:
+        await require_set(data.target_set_id)
+
+    proposal = Proposal(
+        **data.model_dump(exclude={"contributor_name"}),
+        contributor_user_id=current_user["id"] if current_user else None,
+        contributor_name=current_user["name"] if current_user else data.contributor_name,
+    )
+    await db.proposals.insert_one(proposal.model_dump())
+    return proposal
 
 
 # ============== ADMIN: FESTIVALS ==============
@@ -707,3 +805,150 @@ async def delete_source(source_id: str, admin: dict = Depends(get_admin_user)):
         admin_credit(admin),
     )
     return {"message": "Source deleted"}
+
+
+# ============== ADMIN: PROPOSALS (moderation queue) ==============
+
+@archive_router.get("/proposals", response_model=List[ProposalOut])
+async def list_proposals(
+    status_filter: Optional[PROPOSAL_STATUS] = Query(None, alias="status"),
+    admin: dict = Depends(get_admin_user),
+):
+    query = {"status": status_filter} if status_filter else {}
+    proposals = await db.proposals.find(query, {"_id": 0}).sort("created_at", -1).to_list(1000)
+    if not proposals:
+        return []
+
+    edition_ids = list({p["edition_id"] for p in proposals})
+    editions = await db.editions.find({"id": {"$in": edition_ids}}, {"_id": 0}).to_list(1000)
+    editions_by_id = {e["id"]: e for e in editions}
+
+    festival_ids = list({e["festival_id"] for e in editions})
+    festivals = await db.festivals.find({"id": {"$in": festival_ids}}, {"_id": 0}).to_list(1000)
+    festivals_by_id = {f["id"]: f for f in festivals}
+
+    results = []
+    for proposal in proposals:
+        edition = editions_by_id.get(proposal["edition_id"])
+        festival = festivals_by_id.get(edition["festival_id"]) if edition else None
+        edition_label = None
+        if edition:
+            edition_label = edition.get("edition_name") or (
+                f"{festival['name']} {edition['year']}" if festival else str(edition["year"])
+            )
+        results.append(
+            ProposalOut(
+                **proposal,
+                festival_name=festival["name"] if festival else None,
+                festival_slug=festival["slug"] if festival else None,
+                edition_label=edition_label,
+            )
+        )
+    return results
+
+
+async def require_pending_proposal(proposal_id: str) -> dict:
+    proposal = await db.proposals.find_one({"id": proposal_id}, {"_id": 0})
+    if not proposal:
+        raise HTTPException(status_code=404, detail="Proposal not found")
+    if proposal["status"] != "pending":
+        raise HTTPException(status_code=400, detail="Proposal has already been reviewed")
+    return proposal
+
+
+@archive_router.post("/proposals/{proposal_id}/reject", response_model=Proposal)
+async def reject_proposal(
+    proposal_id: str, data: ProposalReject, admin: dict = Depends(get_admin_user)
+):
+    await require_pending_proposal(proposal_id)
+    await db.proposals.update_one(
+        {"id": proposal_id},
+        {
+            "$set": {
+                "status": "rejected",
+                "reviewer_note": data.reviewer_note,
+                "reviewed_by": admin_credit(admin),
+                "reviewed_at": now_iso(),
+            }
+        },
+    )
+    return await db.proposals.find_one({"id": proposal_id}, {"_id": 0})
+
+
+@archive_router.post("/proposals/{proposal_id}/approve", response_model=Proposal)
+async def approve_proposal(proposal_id: str, admin: dict = Depends(get_admin_user)):
+    proposal = await require_pending_proposal(proposal_id)
+    await require_edition(proposal["edition_id"])
+
+    stage = await db.stages.find_one(
+        {"edition_id": proposal["edition_id"], "name": proposal["stage_name"]}, {"_id": 0}
+    )
+    if not stage:
+        stage = Stage(edition_id=proposal["edition_id"], name=proposal["stage_name"]).model_dump()
+        await db.stages.insert_one(stage)
+        edition_label = await get_edition_label(proposal["edition_id"])
+        await write_changelog(
+            "created", "stage", stage["id"], f"Added stage: {stage['name']} ({edition_label})",
+            admin_credit(admin),
+        )
+
+    credited_to = proposal.get("contributor_name") or "Anonymous"
+    edition_label = await get_edition_label(proposal["edition_id"])
+
+    set_fields = {
+        "edition_id": proposal["edition_id"],
+        "stage_id": stage["id"],
+        "artist_name": proposal["artist_name"],
+        "artist_id": proposal.get("artist_id"),
+        "set_date": proposal.get("set_date"),
+        "start_time": proposal.get("start_time"),
+        "end_time": proposal.get("end_time"),
+        "is_b2b": proposal.get("is_b2b", False),
+        "b2b_partners": proposal.get("b2b_partners"),
+        "notes": proposal.get("notes"),
+    }
+
+    if proposal["proposal_type"] == "correction":
+        existing_set = await require_set(proposal["target_set_id"])
+        await db.sets.update_one(
+            {"id": existing_set["id"]}, {"$set": {**set_fields, "updated_at": now_iso()}}
+        )
+        set_id = existing_set["id"]
+        await write_changelog(
+            "correction", "set", set_id,
+            f"Corrected set: {proposal['artist_name']}, {edition_label} (credited to {credited_to})",
+            credited_to,
+        )
+    else:
+        new_set = PerformanceSet(**set_fields)
+        await db.sets.insert_one(new_set.model_dump())
+        set_id = new_set.id
+        await write_changelog(
+            "created", "set", set_id,
+            f"Added set: {proposal['artist_name']}, {stage['name']}, {edition_label} (credited to {credited_to})",
+            credited_to,
+        )
+
+    source = Source(
+        target_type="set",
+        target_id=set_id,
+        source_type=proposal["source_type"],
+        url=proposal.get("source_url"),
+        image_url=proposal.get("source_image_url"),
+        description=proposal.get("source_description"),
+        contributor_name=proposal.get("contributor_name"),
+        contributor_user_id=proposal.get("contributor_user_id"),
+    )
+    await db.sources.insert_one(source.model_dump())
+
+    await db.proposals.update_one(
+        {"id": proposal_id},
+        {
+            "$set": {
+                "status": "approved",
+                "reviewed_by": admin_credit(admin),
+                "reviewed_at": now_iso(),
+            }
+        },
+    )
+    return await db.proposals.find_one({"id": proposal_id}, {"_id": 0})

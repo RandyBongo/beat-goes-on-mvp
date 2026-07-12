@@ -13,11 +13,14 @@ import {
   PlayCircle,
   MessageSquare,
   ShieldQuestion,
+  Plus,
+  Pencil,
 } from "lucide-react";
 import { API } from "../App";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Breadcrumbs from "./Breadcrumbs";
+import ProposalForm from "./ProposalForm";
 
 const SOURCE_ICONS = {
   flyer: ImageIcon,
@@ -70,7 +73,7 @@ const SourceList = ({ sources }) => (
   </div>
 );
 
-const SetRow = ({ performanceSet }) => {
+const SetRow = ({ performanceSet, stageName, onCorrect }) => {
   const [expanded, setExpanded] = useState(false);
   const hasSources = performanceSet.sources?.length > 0;
 
@@ -120,6 +123,14 @@ const SetRow = ({ performanceSet }) => {
             {performanceSet.sources?.length === 1 ? "" : "s"}
             {hasSources && (expanded ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />)}
           </button>
+          <button
+            onClick={() => onCorrect(performanceSet, stageName)}
+            className="flex items-center gap-1 text-white/50 hover:text-white transition-colors"
+            data-testid={`correct-set-${performanceSet.id}`}
+          >
+            <Pencil className="w-3 h-3" />
+            Correct
+          </button>
         </div>
       </div>
 
@@ -137,6 +148,7 @@ const EditionPage = () => {
   const [edition, setEdition] = useState(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
+  const [proposalState, setProposalState] = useState(null); // null | { correctionOf? }
 
   useEffect(() => {
     setLoading(true);
@@ -244,9 +256,19 @@ const EditionPage = () => {
 
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-2xl font-bold text-white tracking-tight">Lineup</h2>
-            <span className="text-xs text-white/40 font-mono">
-              {totalSets} set{totalSets === 1 ? "" : "s"} documented
-            </span>
+            <div className="flex items-center gap-4">
+              <span className="text-xs text-white/40 font-mono">
+                {totalSets} set{totalSets === 1 ? "" : "s"} documented
+              </span>
+              <button
+                onClick={() => setProposalState({})}
+                className="flex items-center gap-2 px-4 py-2 border border-white/20 hover:border-white/40 text-white text-xs font-medium uppercase tracking-widest transition-colors"
+                data-testid="add-set-btn"
+              >
+                <Plus className="w-3.5 h-3.5" />
+                Add a set
+              </button>
+            </div>
           </div>
 
           {edition.stages.length === 0 ? (
@@ -268,7 +290,16 @@ const EditionPage = () => {
                   ) : (
                     <div className="space-y-2">
                       {stage.sets.map((performanceSet) => (
-                        <SetRow key={performanceSet.id} performanceSet={performanceSet} />
+                        <SetRow
+                          key={performanceSet.id}
+                          performanceSet={performanceSet}
+                          stageName={stage.name}
+                          onCorrect={(set, stageName) =>
+                            setProposalState({
+                              correctionOf: { ...set, stage_name: stageName },
+                            })
+                          }
+                        />
                       ))}
                     </div>
                   )}
@@ -278,6 +309,13 @@ const EditionPage = () => {
           )}
         </div>
       </main>
+
+      <ProposalForm
+        open={!!proposalState}
+        onOpenChange={(open) => !open && setProposalState(null)}
+        lockedEdition={{ id: edition.id, label: editionLabel, festivalName: edition.festival_name }}
+        correctionOf={proposalState?.correctionOf}
+      />
 
       <Footer />
     </div>

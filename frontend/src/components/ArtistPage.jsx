@@ -10,13 +10,16 @@ import {
   Link2,
   Share2,
   ShieldQuestion,
+  Plus,
+  Pencil,
 } from "lucide-react";
 import { API } from "../App";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Breadcrumbs from "./Breadcrumbs";
+import ProposalForm from "./ProposalForm";
 
-const ArtistSetRow = ({ performanceSet }) => {
+const ArtistSetRow = ({ performanceSet, onCorrect }) => {
   const [expanded, setExpanded] = useState(false);
   const hasSources = performanceSet.sources?.length > 0;
   const timeRange = [performanceSet.start_time, performanceSet.end_time]
@@ -87,6 +90,13 @@ const ArtistSetRow = ({ performanceSet }) => {
             {performanceSet.sources?.length === 1 ? "" : "s"}
             {hasSources && (expanded ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />)}
           </button>
+          <button
+            onClick={() => onCorrect(performanceSet)}
+            className="flex items-center gap-1 text-xs text-white/50 hover:text-white transition-colors font-mono"
+          >
+            <Pencil className="w-3 h-3" />
+            Correct
+          </button>
         </div>
       </div>
 
@@ -124,6 +134,7 @@ const ArtistPage = () => {
   const { name } = useParams();
   const [sets, setSets] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [proposalState, setProposalState] = useState(null); // null | { correctionOf? }
 
   useEffect(() => {
     setLoading(true);
@@ -176,14 +187,24 @@ const ArtistPage = () => {
                 </p>
               )}
             </div>
-            <button
-              onClick={handleShare}
-              className="flex items-center gap-2 px-5 py-2.5 border border-white/20 hover:border-white/40 text-white text-sm font-medium uppercase tracking-widest transition-colors self-start"
-              data-testid="share-artist-btn"
-            >
-              <Share2 className="w-4 h-4" />
-              Copy Link
-            </button>
+            <div className="flex items-center gap-3 self-start">
+              <button
+                onClick={() => setProposalState({})}
+                className="flex items-center gap-2 px-5 py-2.5 border border-white/20 hover:border-white/40 text-white text-sm font-medium uppercase tracking-widest transition-colors"
+                data-testid="add-set-for-artist-btn"
+              >
+                <Plus className="w-4 h-4" />
+                Add a set
+              </button>
+              <button
+                onClick={handleShare}
+                className="flex items-center gap-2 px-5 py-2.5 border border-white/20 hover:border-white/40 text-white text-sm font-medium uppercase tracking-widest transition-colors"
+                data-testid="share-artist-btn"
+              >
+                <Share2 className="w-4 h-4" />
+                Copy Link
+              </button>
+            </div>
           </div>
 
           {loading ? (
@@ -197,12 +218,23 @@ const ArtistPage = () => {
           ) : (
             <div className="space-y-3">
               {sets.map((performanceSet) => (
-                <ArtistSetRow key={performanceSet.id} performanceSet={performanceSet} />
+                <ArtistSetRow
+                  key={performanceSet.id}
+                  performanceSet={performanceSet}
+                  onCorrect={(set) => setProposalState({ correctionOf: set })}
+                />
               ))}
             </div>
           )}
         </div>
       </main>
+
+      <ProposalForm
+        open={!!proposalState}
+        onOpenChange={(open) => !open && setProposalState(null)}
+        lockedArtist={name}
+        correctionOf={proposalState?.correctionOf}
+      />
 
       <Footer />
     </div>
